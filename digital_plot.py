@@ -78,3 +78,18 @@ def plot_ask(data: str, freq: float):
     plt.gca().set_yticks([-2, -0.5, 0, 0.5, 2])
     plt.show()
 
+def plot_fsk(data: str, freq: float):
+    bits = char_to_bin(data)
+    x_tics = np.arange(0, len(bits), 0.01)
+    F = []
+    for i in range(0, len(x_tics)):
+        F.append(5*freq if bits[i//100] == 1 else freq)
+    x = x_tics * F
+    y = np.sin(np.pi*x)
+    plt.ylim([-1.25, 1.5])
+    plt.plot(x_tics, y)
+    for tbit, bit in enumerate(bits):
+        plt.text(tbit + 0.5, 1.25, str(bit))
+    plt.gca().grid(axis='x')
+    plt.gca().set_yticks([-1.0, 0, 1.0])
+    plt.show()
